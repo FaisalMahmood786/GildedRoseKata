@@ -26,5 +26,17 @@ namespace GildedRoseTests
 
             return Verifier.Verify(output);
         }
+        [Fact]
+        public Task GoldenMaster()
+        {
+            var fakeoutput = new StringBuilder();
+            Console.SetOut(new StringWriter(fakeoutput));
+            Console.SetIn(new StringReader("a\n"));
+
+            Program.Main(new string[] { "30" });
+            var output = fakeoutput.ToString();
+
+            return Verifier.Verify(output);
+        }
     }
 }
