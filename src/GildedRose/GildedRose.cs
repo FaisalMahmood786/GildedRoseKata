@@ -1,106 +1,48 @@
 ﻿using System.Collections.Generic;
+using GildedRose;
 
 namespace GildedRoseKata
 {
     public class GildedRose
     {
-        IList<Item> Items;
-        public GildedRose(IList<Item> Items)
+
+        IList<ItemWrapper> Items;
+
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            Items = new List<ItemWrapper>();
+
+            foreach (var item in items)
+            {
+                switch (item.Name)
+                {
+                    case "Aged Brie":
+                        Items.Add(new AgedBrie(item));
+                        break;
+                    case "Backstage passes to a TAFKAL80ETC concert":
+                        Items.Add(new BackstagePass(item));
+                        break;
+                    case "Sulfuras, Hand of Ragnaros":
+                        Items.Add(new Sulfuras(item));
+                        break;
+                    case "Conjured Mana Cake":
+                        Items.Add(new Conjured(item));
+                        break;
+                    default:
+                        Items.Add(new RegularItem(item));
+                        break;
+                }
+            }
+
         }
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach (var item in Items)
             {
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (Items[i].Quality > 0)
-                    {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            if (Items[i].Name == "Conjured Mana Cake")
-                            {
-                                // Conjured items degrade in quality twice as fast
-                                Items[i].Quality -= 2;
-                            }
-                            else
-                            {
-                                Items[i].Quality = Items[i].Quality - 1;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (Items[i].Quality < 50)
-                    {
-                        Items[i].Quality = Items[i].Quality + 1;
-
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].SellIn < 11)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-
-                            if (Items[i].SellIn < 6)
-                            {
-                                if (Items[i].Quality < 50)
-                                {
-                                    Items[i].Quality = Items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    Items[i].SellIn = Items[i].SellIn - 1;
-                }
-
-                if (Items[i].SellIn < 0)
-                {
-                    if (Items[i].Name != "Aged Brie")
-                    {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (Items[i].Quality > 0)
-                            {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    if (Items[i].Name == "Conjured Mana Cake")
-                                    {
-                                        // Conjured items degrade in quality twice as fast
-                                        Items[i].Quality -= 2;
-                                    }
-                                    else
-                                    {
-                                        Items[i].Quality = Items[i].Quality - 1;
-                                    }
-                                  
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                        }
-                    }
-                    else
-                    {
-                        if (Items[i].Quality < 50)
-                        {
-                            Items[i].Quality = Items[i].Quality + 1;
-                        }
-                    }
-                }
+                item.Update();
             }
         }
     }
 }
+

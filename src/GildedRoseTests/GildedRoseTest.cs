@@ -10,7 +10,7 @@ namespace GildedRoseTests
         public void foo()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
             app.UpdateQuality();
             Assert.Equal("foo", Items[0].Name);
         }
@@ -18,7 +18,7 @@ namespace GildedRoseTests
         public void ConjuredItems_DecreaseInQualityTwiceAsFast()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 6 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
@@ -29,7 +29,7 @@ namespace GildedRoseTests
         public void ConjuredItems_DecreaseInQualityTwiceAsFast_AfterSellByDate()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Conjured Mana Cake", SellIn = 0, Quality = 6 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
@@ -40,7 +40,7 @@ namespace GildedRoseTests
         public void AgedBrie_IncreasesInQuality()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
@@ -51,7 +51,7 @@ namespace GildedRoseTests
         public void BackstagePasses_IncreaseInQuality()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = 20 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
@@ -62,7 +62,7 @@ namespace GildedRoseTests
         public void BackstagePasses_QualityDropsToZeroAfterConcert()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 20 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
@@ -73,7 +73,7 @@ namespace GildedRoseTests
         public void Sulfuras_QualityDoesNotChange()
         {
             IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 } };
-            GildedRose app = new GildedRose(Items);
+            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
 
             app.UpdateQuality();
 
